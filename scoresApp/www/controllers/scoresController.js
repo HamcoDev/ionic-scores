@@ -4,7 +4,7 @@ app.controller("ScoresCtrl", function($scope, $http) {
   $http({
   headers: {'X-Auth-Token': 'b435bb252dad4a63ab0ab09b10314773'},
   method: 'GET',
-  url: 'http://api.football-data.org/alpha/soccerseasons/398/fixtures'
+  url: 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday=8'
 }).then(function successCallback(response) {
     $scope.fixtureList = response.data;
   }, function errorCallback(response) {
@@ -13,7 +13,11 @@ app.controller("ScoresCtrl", function($scope, $http) {
   });
   
   $scope.currentWeek = function(fixture) {
-  return fixture.matchday === 7;
+  return fixture.matchday === 8;
 }
+
+  $scope.submit = function() {
+    
+  }
 }
 );

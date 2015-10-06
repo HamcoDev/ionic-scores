@@ -27,17 +27,28 @@
 
   <ion-pane>
     <ion-header-bar class="bar-stable">
-      <h1 class="title">Scores Predictor</h1>
+      <h1 class="title">
+        <center>Scores Predictor</center>
+      </h1>
     </ion-header-bar>
     <ion-content>
-      <div ng-controller="ScoresCtrl">
+      <div ng-controller="ScoresCtrl"><button ng-click="submit()">Submit</button>
         <ul ng-repeat="fixture in fixtureList.fixtures | filter:currentWeek">
-          <li>{{fixture.homeTeamName}} v {{fixture.awayTeamName}} </li>
+          <li class="fixture item-divider"> {{ fixture.date | date:'dd-MM-yyyy HH:mm' }} </li>
+          <li class="item"> 
+            <label class="item item-input">
+              <span class="input-label"> {{ fixture.homeTeamName }} </span>
+              <input type="number" placeholder="0" ng-model="fixture.homePrediction">
+            </label>
+            <label class="item item-input">
+              <span class="input-label" > {{ fixture.awayTeamName }} </span>
+              <input type="number" placeholder="0" ng-model="fixture.awayPrediction">
+            </label>
+          </li>
         </ul>
       </div>
     </ion-content>
   </ion-pane>
   <script src="controllers/scoresController.js"></script>
 </body>
-
 </html>
