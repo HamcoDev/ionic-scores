@@ -1,28 +1,39 @@
-var app = angular.module("scoresApp", ['ionic', 'firebase']);
+angular.module("scoresApp")
 
-app.controller("scoresController", scoresController);
+  .controller("enterPredictionsController", enterPredictionsController);
 
-scoresController.$inject = [
+enterPredictionsController.$inject = [
   "$scope",
   "$firebase",
-  "$http"
+  "$http",
+  "$state"
 ];
 
-function scoresController(
+function enterPredictionsController(
   $scope,
   $firebase,
-  $http
+  $http,
+  $state
   ) {
-  
+
   var ref = new Firebase('https://ionic-scores.firebaseio.com');
+
+  var authenticatedUser = ref.getAuth();
+
+  if (!authenticatedUser) {
+    $state.go('login');
+    return;
+  }
+
+
   var currentMatchdayURL = new Firebase('https://ionic-scores.firebaseio.com/currentMatchday');
   var currentMatchday = "11";
   var Url = "";
-  currentMatchdayURL.on("value", function(snapshot){
+  currentMatchdayURL.on("value", function (snapshot) {
     currentMatchday = snapshot.val();
     Url = 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday=11'
   });
-  
+
   $http({
     headers: { 'X-Auth-Token': 'b435bb252dad4a63ab0ab09b10314773' },
     method: 'GET',
@@ -36,28 +47,33 @@ function scoresController(
 
   $scope.submit = function () {
     var user = ref.child("scores/user");
-    var userRef = user.child(4)
-    
-    var matchday = userRef.child("matchday");  
+    var userRef = user.child(authenticatedUser.uid)
+
+    var matchday = userRef.child("matchday");
     var matchdayRef = matchday.child(8);
-    
+
     var fixture = matchdayRef.child("fixture");
-    
+
     var predictions = [];
 
-    $scope.fixtureList.fixtures.forEach(function (fixture) {    
-     
-     predictions.push({
+    $scope.fixtureList.fixtures.forEach(function (fixture) {
+
+      predictions.push({
         homeTeam: fixture.homeTeamName,
         homePrediction: fixture.homePrediction == null ? 0 : fixture.homePrediction,
         awayTeam: fixture.awayTeamName,
         awayPrediction: fixture.awayPrediction == null ? 0 : fixture.awayPrediction,
         date: fixture.date,
         status: fixture.status
-      });      
+      });
     });
-    
+
     fixture.set(predictions);
+  };
+
+  $scope.logout = function () {
+    ref.unauth();
+    $state.go('login');
   }
 
   // $scope.currentWeek = function (fixture) {
