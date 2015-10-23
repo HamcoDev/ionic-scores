@@ -14,8 +14,8 @@ function registrationController(
 
   var ref = new Firebase('https://ionic-scores.firebaseio.com');
 
-  $scope.register = function (email, password) {
-    
+  $scope.register = function (name, email, password) {
+
     ref.createUser({
       email: email,
       password: password
@@ -24,7 +24,14 @@ function registrationController(
         alert(error);
         console.log("Error creating user:", error);
       } else {
-        alert("Successfully created user account with uid:", userData.uid);
+        
+        alert("Successfully created user account with uid: " + userData.uid);
+        
+        var userRef = ref.child("user/".concat(userData.uid));
+        userRef.set({
+          name: name,
+          email: email
+        });
       }
     });
   }
