@@ -7,7 +7,7 @@
     </ion-header-bar>
     <ion-content>
       <div ng-controller="enterPredictionsController"><button ng-click="submit()">Submit</button>
-        <ul ng-repeat="fixture in fixtureList.fixtures | filter:currentWeek">
+        <ul ng-repeat="fixture in fixtureList.fixtures">
           <li class="fixture item-divider"> {{ fixture.date | date:'dd-MM-yyyy HH:mm' }} </li>
           <li class="item"> 
             <label class="item item-input">

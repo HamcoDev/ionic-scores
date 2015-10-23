@@ -27,22 +27,17 @@ function enterPredictionsController(
 
 
   var currentMatchdayURL = new Firebase('https://ionic-scores.firebaseio.com/currentMatchday');
-  var currentMatchday = "11";
-  var Url = "";
+  var currentMatchday;
   currentMatchdayURL.on("value", function (snapshot) {
     currentMatchday = snapshot.val();
-    Url = 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday=11'
-  });
-
-  $http({
-    headers: { 'X-Auth-Token': 'b435bb252dad4a63ab0ab09b10314773' },
-    method: 'GET',
-    url: 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday=11'
-  }).then(function successCallback(response) {
-    $scope.fixtureList = response.data;
-  }, function errorCallback(response) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
+    $http({
+      headers: { 'X-Auth-Token': 'b435bb252dad4a63ab0ab09b10314773' },
+      method: 'GET',
+      url: 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday='.concat(currentMatchday)
+    }).then(function successCallback(response) {
+      $scope.fixtureList = response.data;
+    }, function errorCallback(response) {
+    });
   });
 
   $scope.submit = function () {
@@ -50,7 +45,7 @@ function enterPredictionsController(
     var userRef = user.child(authenticatedUser.uid)
 
     var matchday = userRef.child("matchday");
-    var matchdayRef = matchday.child(8);
+    var matchdayRef = matchday.child(currentMatchday);
 
     var fixture = matchdayRef.child("fixture");
 

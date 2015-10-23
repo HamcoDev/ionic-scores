@@ -18,10 +18,25 @@ function viewPredictionsController(
 
   var ref = new Firebase('https://ionic-scores.firebaseio.com');
 
-  var user = ref.getAuth();
+  var authenticatedUser = ref.getAuth();
 
-  if (!user) {
+  if (!authenticatedUser) {
     $state.go('login');
     return;
+  }
+
+  var userPredictions = new Firebase('https://ionic-scores.firebaseio.com/scores/user/'.concat(authenticatedUser.uid));
+  //var userPredictions = new Firebase('https://ionic-scores.firebaseio.com/scores/user/'.concat(authenticatedUser.uid).concat('/matchday/10'));
+  var predictions;
+  userPredictions.on("value", function (snapshot) {
+    $scope.predictions = snapshot.val();
+    console.log(snapshot.val());
+  });
+  
+  $scope.matchdayChanged = function () {    
+  var userPredictions = new Firebase('https://ionic-scores.firebaseio.com/scores/user/'.concat(authenticatedUser.uid).concat('/matchday/'.concat($scope.selectedMatchday)));
+  userPredictions.on("value", function (snapshot) {
+    $scope.predictions = snapshot.val();
+  });
   }
 };
