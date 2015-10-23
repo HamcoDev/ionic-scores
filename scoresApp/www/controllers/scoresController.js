@@ -1,23 +1,32 @@
 var app = angular.module("scoresApp", ['ionic', 'firebase']);
 
-app.controller("ScoresCtrl", ScoresCtrl);
+app.controller("scoresController", scoresController);
 
-ScoresCtrl.$inject = [
+scoresController.$inject = [
   "$scope",
   "$firebase",
   "$http"
 ];
 
-function ScoresCtrl(
+function scoresController(
   $scope,
   $firebase,
   $http
   ) {
+  
   var ref = new Firebase('https://ionic-scores.firebaseio.com');
+  var currentMatchdayURL = new Firebase('https://ionic-scores.firebaseio.com/currentMatchday');
+  var currentMatchday = "11";
+  var Url = "";
+  currentMatchdayURL.on("value", function(snapshot){
+    currentMatchday = snapshot.val();
+    Url = 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday=11'
+  });
+  
   $http({
     headers: { 'X-Auth-Token': 'b435bb252dad4a63ab0ab09b10314773' },
     method: 'GET',
-    url: 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday=8'
+    url: 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday=11'
   }).then(function successCallback(response) {
     $scope.fixtureList = response.data;
   }, function errorCallback(response) {
@@ -51,7 +60,7 @@ function ScoresCtrl(
     fixture.set(predictions);
   }
 
-  $scope.currentWeek = function (fixture) {
-    return fixture.matchday === 8;
-  }
+  // $scope.currentWeek = function (fixture) {
+  //   return fixture.matchday === 8;
+  // }
 };
