@@ -24,11 +24,12 @@ function registrationController(
         alert(error);
         console.log("Error creating user:", error);
       } else {
-        
+
         alert("Successfully created user account with uid: " + userData.uid);
-        
-        var userRef = ref.child("user/".concat(userData.uid));
-        userRef.set({
+
+        var userRef = ref.child("user");
+        userRef.push({
+          id: userData.uid,
           name: name,
           email: email
         });
