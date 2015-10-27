@@ -15,5 +15,6 @@ angular.module('scoresApp', ['ionic', "firebase"])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    
   });
 })

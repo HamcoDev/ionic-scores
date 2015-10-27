@@ -28,9 +28,10 @@ angular.module("scoresApp").config(["$stateProvider", "$urlRouterProvider", func
     
     $stateProvider.state("home", {
         url: "/home",
-        templateUrl: "ng-templates/home.html"
+        templateUrl: "ng-templates/home.html",
+        controller: "homeController"
     });
     
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/home");
     
 }]);
