@@ -19,7 +19,6 @@ angular.module("scoresApp").config(["$stateProvider", "$urlRouterProvider", func
         controller: "viewPredictionsController"
     });   
     
-    
     $stateProvider.state("registration", {
         url: "/registration",
         templateUrl: "ng-templates/registration.html",

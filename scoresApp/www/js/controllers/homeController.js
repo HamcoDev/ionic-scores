@@ -1,6 +1,5 @@
 angular.module("scoresApp")
-
-  .controller("homeController", homeController);
+.controller("homeController", homeController);
 
 homeController.$inject = [
   "$scope",
@@ -11,7 +10,6 @@ homeController.$inject = [
 function homeController(
   $scope,
   $firebase,
-  $http,
   $state
   ) {
 
