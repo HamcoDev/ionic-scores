@@ -48,10 +48,10 @@ angular.module("scoresApp").config(["$stateProvider", "$urlRouterProvider", func
         url: "/home",
         views: {
             'menuContent': {
-                templateUrl: "ng-templates/home.html"
+                templateUrl: "ng-templates/home.html",
+                controller: "homeController"
             }
-        },
-        controller: "homeController"
+        }
     });
 
     $urlRouterProvider.otherwise("/home");

@@ -30,7 +30,6 @@ function viewPredictionsController(
   var predictions;
   userPredictions.on("value", function (snapshot) {
     $scope.predictions = snapshot.val();
-    console.log(snapshot.val());
   });
   
   $scope.matchdayChanged = function () {    

@@ -1,14 +1,13 @@
 angular.module("scoresApp")
   .controller("menuController", menuController);
 
-loginController.$inject = [
+menuController.$inject = [
   "$scope",
   "$state"
 ];
 
 function menuController(
   $scope,
-  $firebase,
   $state
   ) {
 
