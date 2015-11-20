@@ -3,29 +3,18 @@ angular.module("scoresApp")
 
 loginController.$inject = [
   "$scope",
-  "$firebase",
-  "$state"
+  "$state",
+  "dataService"
 ];
 
 function loginController(
   $scope,
-  $firebase,
-  $state
+  $state,
+  dataService
   ) {
 
-  var ref = new Firebase('https://ionic-scores.firebaseio.com');
-
   $scope.login = function (email, password) {
-
-    ref.authWithPassword({
-      email: email,
-      password: password
-    }, function (error, authData) {
-      if (error) {
-        console.log("Login Failed!", error);
-      } else {
-        $state.go('menu.home');
-      }
-    });
+    dataService.login(email, password);
   }
+
 };

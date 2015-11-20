@@ -6,25 +6,19 @@ enterPredictionsController.$inject = [
   "$scope",
   "$firebase",
   "$http",
-  "$state"
+  "$state",
+  "dataService"
 ];
 
 function enterPredictionsController(
   $scope,
   $firebase,
   $http,
-  $state
+  $state,
+  dataService
   ) {
 
-  var ref = new Firebase('https://ionic-scores.firebaseio.com');
-
-  var authenticatedUser = ref.getAuth();
-
-  if (!authenticatedUser) {
-    $state.go('login');
-    return;
-  }
-
+dataService.checkUserAuthenticated();
 
   var currentMatchdayURL = new Firebase('https://ionic-scores.firebaseio.com/currentMatchday');
   var currentMatchday;
@@ -41,8 +35,8 @@ function enterPredictionsController(
   });
 
   $scope.submit = function () {
-    var user = ref.child("scores/user");
-    var userRef = user.child(authenticatedUser.uid)
+    var user = dataService.ref.child("scores/user");
+    var userRef = user.child(dataService.authenticatedUser.uid)
 
     var matchday = userRef.child("matchday");
     var matchdayRef = matchday.child(currentMatchday);

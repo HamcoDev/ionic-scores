@@ -3,19 +3,16 @@ angular.module("scoresApp")
 
 menuController.$inject = [
   "$scope",
-  "$state"
+  "dataService"
 ];
 
 function menuController(
   $scope,
-  $state
+  dataService
   ) {
 
-  var ref = new Firebase('https://ionic-scores.firebaseio.com');
-
-  $scope.logout = function () {
-    ref.unauth();
-    $state.go('login');
+  $scope.logout = function() {
+    dataService.logout();
   }
 };
 

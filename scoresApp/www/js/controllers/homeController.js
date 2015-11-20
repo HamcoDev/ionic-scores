@@ -4,22 +4,17 @@ angular.module("scoresApp")
 homeController.$inject = [
   "$scope",
   "$firebase",
-  "$state"
+  "$state",
+  "dataService"
 ];
 
 function homeController(
   $scope,
   $firebase,
-  $state
+  $state,
+  dataService
   ) {
-
-  var ref = new Firebase('https://ionic-scores.firebaseio.com');
-
-  var authenticatedUser = ref.getAuth();
-
-  if (!authenticatedUser) {
-    $state.go('login');
-    return;
-  }
-
+    
+ dataService.checkUserAuthenticated();
+  
 };
