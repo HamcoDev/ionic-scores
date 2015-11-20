@@ -1,0 +1,39 @@
+<ion-side-menus enable-menu-with-back-views="false">
+	<ion-side-menu side="left">
+		<ion-header-bar class="bar-stable">
+			<h1 class="title"><center>Menu</center></h1>
+		</ion-header-bar>
+		<ion-content>
+			<ion-list>
+				<ion-item menu-close ui-sref="menu.home">
+					Home
+				</ion-item>
+				<ion-item menu-close ui-sref="menu.predictions/enter">
+					Enter Predictions
+				</ion-item>
+				<ion-item menu-close ui-sref="menu.predictions/view">
+					View Predictions
+				</ion-item>
+				<ion-item menu-close ui-sref="menu.home">
+					League Table
+				</ion-item>
+				<ion-item menu-close ui-sref="menu.home">
+					My Account
+				</ion-item>
+				<ion-item ng-click="logout()">
+					Logout
+				</ion-item>
+			</ion-list>
+		</ion-content>
+	</ion-side-menu>
+	<ion-side-menu-content>
+		<ion-nav-bar class="bar-stable">
+			<ion-nav-buttons side="left">
+				<button class="button button-icon button-clear ion-navicon" menu-toggle=""></button>
+			</ion-nav-buttons>
+		</ion-nav-bar>
+		<ion-nav-view name="menuContent">
+			<!--main panel goes here-->
+		</ion-nav-view>
+	</ion-side-menu-content>
+</ion-side-menus>

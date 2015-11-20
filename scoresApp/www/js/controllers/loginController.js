@@ -24,7 +24,7 @@ function loginController(
       if (error) {
         console.log("Login Failed!", error);
       } else {
-        $state.go('home');
+        $state.go('menu.home');
       }
     });
   }

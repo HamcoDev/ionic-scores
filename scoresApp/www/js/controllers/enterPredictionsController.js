@@ -66,10 +66,7 @@ function enterPredictionsController(
     fixture.set(predictions);
   };
 
-  $scope.logout = function () {
-    ref.unauth();
-    $state.go('login');
-  }
+  
 
   // $scope.currentWeek = function (fixture) {
   //   return fixture.matchday === 8;

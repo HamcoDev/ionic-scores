@@ -1,36 +1,53 @@
-angular.module("scoresApp").config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+angular.module("scoresApp").config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
     "use strict";
-    
+
+    $stateProvider.state("menu", {
+        templateUrl: "ng-templates/menu.html",
+        controller: "menuController"
+    });
+
     $stateProvider.state("login", {
         url: "/login",
         templateUrl: "ng-templates/login.html",
         controller: "loginController"
     });
 
-    $stateProvider.state("predictions/enter", {
+    $stateProvider.state("menu.predictions/enter", {
         url: "/predictions/enter",
-        templateUrl: "ng-templates/enter-predictions.html",
-        controller: "enterPredictionsController"
+        views: {
+            'menuContent': {
+                templateUrl: "ng-templates/enter-predictions.html",
+                controller: "enterPredictionsController"
+            }
+        }
     });
 
-    $stateProvider.state("predictions/view", {
+    $stateProvider.state("menu.predictions/view", {
         url: "/predictions/view",
-        templateUrl: "ng-templates/view-predictions.html",
-        controller: "viewPredictionsController"
-    });   
-    
+        views: {
+            'menuContent': {
+                templateUrl: "ng-templates/view-predictions.html",
+                controller: "viewPredictionsController"
+            }
+        }
+    });
+
     $stateProvider.state("registration", {
         url: "/registration",
         templateUrl: "ng-templates/registration.html",
         controller: "registrationController"
     });
-    
-    $stateProvider.state("home", {
+
+    $stateProvider.state("menu.home", {
         url: "/home",
-        templateUrl: "ng-templates/home.html",
+        views: {
+            'menuContent': {
+                templateUrl: "ng-templates/home.html"
+            }
+        },
         controller: "homeController"
     });
-    
+
     $urlRouterProvider.otherwise("/home");
-    
+
 }]);
