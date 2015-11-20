@@ -31,6 +31,12 @@ angular.module("scoresApp").config(["$stateProvider", "$urlRouterProvider", func
             }
         }
     });
+    
+    $stateProvider.state("leagueTable", {
+        url: "/leagueTable",
+        templateUrl: "ng-templates/league-table.html",
+        controller: "leagueTableController"
+    });
 
     $stateProvider.state("registration", {
         url: "/registration",
