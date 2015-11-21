@@ -31,11 +31,15 @@ angular.module("scoresApp").config(["$stateProvider", "$urlRouterProvider", func
             }
         }
     });
-    
-    $stateProvider.state("leagueTable", {
+
+    $stateProvider.state("menu.leagueTable", {
         url: "/leagueTable",
-        templateUrl: "ng-templates/league-table.html",
-        controller: "leagueTableController"
+        views: {
+            'menuContent': {
+                templateUrl: "ng-templates/league-table.html",
+                controller: "leagueTableController"
+            }
+        }
     });
 
     $stateProvider.state("registration", {

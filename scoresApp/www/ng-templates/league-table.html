@@ -1,17 +1,14 @@
-<ion-header-bar class="bar-stable">
-	<h1 class="title">League Table</h1>
-</ion-header-bar>
-<ion-content>
-
-	<div ng-controller="leagueTableController" data-ng-init="init()">
-
-		<div class="row header table table-striped">
-			<div class="col">Name</div>
-			<div class="col">Points</div>
+<ion-view title="League Table">
+	<ion-content>
+		<div ng-controller="leagueTableController" data-ng-init="init()">
+			<div class="row header table table-striped">
+				<div class="col">Name</div>
+				<div class="col">Points</div>
+			</div>
+			<div class="row" ng-repeat="user in leagueData">
+				<div class="col">{{user.name}}</div>
+				<div class="col">{{user.points}}</div>
+			</div>
 		</div>
-		<div class="row" ng-repeat="user in leagueData">
-			<div class="col">{{user.name}}</div>
-			<div class="col">{{user.points}}</div>
-		</div>
-	</div>
-</ion-content>
+	</ion-content>
+</ion-view>
