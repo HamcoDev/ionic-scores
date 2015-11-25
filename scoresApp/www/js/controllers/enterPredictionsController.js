@@ -4,7 +4,6 @@ angular.module("scoresApp")
 
 enterPredictionsController.$inject = [
   "$scope",
-  "$firebase",
   "$http",
   "$state",
   "dataService"
@@ -12,7 +11,6 @@ enterPredictionsController.$inject = [
 
 function enterPredictionsController(
   $scope,
-  $firebase,
   $http,
   $state,
   dataService
@@ -60,6 +58,16 @@ dataService.checkUserAuthenticated();
     fixture.set(predictions);
   };
 
+$scope.matchdayChanged = function () {    
+     $http({
+      headers: { 'X-Auth-Token': 'b435bb252dad4a63ab0ab09b10314773' },
+      method: 'GET',
+      url: 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday='.concat($scope.selectedMatchday)
+    }).then(function successCallback(response) {
+      $scope.fixtureList = response.data;
+    }, function errorCallback(response) {
+    });
+  }
   
 
   // $scope.currentWeek = function (fixture) {

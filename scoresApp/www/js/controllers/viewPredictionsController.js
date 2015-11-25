@@ -4,7 +4,6 @@ angular.module("scoresApp")
 
 viewPredictionsController.$inject = [
   "$scope",
-  "$firebase",
   "$http",
   "$state",
   "dataService"
@@ -12,7 +11,6 @@ viewPredictionsController.$inject = [
 
 function viewPredictionsController(
   $scope,
-  $firebase,
   $http,
   $state,
   dataService
