@@ -4,14 +4,12 @@ angular.module("scoresApp")
 
 registrationController.$inject = [
   "$scope",
-  "$state",
-  "$firebase"
+  "$state"
 ];
 
 function registrationController(
   $scope,
-  $state,
-  $firebase
+  $state
   ) {
 
   var ref = new Firebase('https://ionic-scores.firebaseio.com');

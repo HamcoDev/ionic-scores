@@ -1,22 +1,18 @@
 angular.module("scoresApp")
-
   .controller("enterPredictionsController", enterPredictionsController);
 
 enterPredictionsController.$inject = [
   "$scope",
   "$http",
-  "$state",
   "dataService"
 ];
 
 function enterPredictionsController(
   $scope,
   $http,
-  $state,
   dataService
   ) {
-
-dataService.checkUserAuthenticated();
+  dataService.checkUserAuthenticated();
 
   var currentMatchdayURL = new Firebase('https://ionic-scores.firebaseio.com/currentMatchday');
   var currentMatchday;
@@ -58,8 +54,8 @@ dataService.checkUserAuthenticated();
     fixture.set(predictions);
   };
 
-$scope.matchdayChanged = function () {    
-     $http({
+  $scope.matchdayChanged = function () {
+    $http({
       headers: { 'X-Auth-Token': 'b435bb252dad4a63ab0ab09b10314773' },
       method: 'GET',
       url: 'http://api.football-data.org/alpha/soccerseasons/398/fixtures/?matchday='.concat($scope.selectedMatchday)

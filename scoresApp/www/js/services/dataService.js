@@ -36,6 +36,30 @@ function dataService(
     });
   }
 
+  function getLeagueData() {
+    return $q(function (resolve, reject) {
+      getUsers()
+        .then(function (users) {
+          var leagueData = [];
+                
+          //loop through users and get totalPoints value    
+          angular.forEach(users, function (user) {
+
+            getTotalScore(user.id)
+              .then(function (totalPoints) {
+                // push onto scope results array
+                leagueData.push({
+                  name: user.name,
+                  points: totalPoints
+                });
+              });
+          })
+
+          resolve(leagueData);
+        });
+    });
+  }
+
   function getTotalScore(userId) {
     return $q(function (resolve, reject) {
       var url = "https://ionic-scores.firebaseio.com/scores/user/".concat(userId).concat("/totalPoints");
@@ -65,6 +89,7 @@ function dataService(
       });
     },
     getUsers: getUsers,
-    getTotalScore: getTotalScore
+    getTotalScore: getTotalScore,
+    getLeagueData: getLeagueData
   }
 };

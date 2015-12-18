@@ -1,15 +1,12 @@
 angular.module("scoresApp")
-.controller("homeController", homeController);
+  .controller("homeController", homeController);
 
 homeController.$inject = [
   "dataService"
 ];
 
 function homeController(
-
   dataService
   ) {
-    
- dataService.checkUserAuthenticated();
-  
+  dataService.checkUserAuthenticated();
 };
