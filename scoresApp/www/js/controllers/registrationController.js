@@ -4,11 +4,13 @@ angular.module("scoresApp")
 
 registrationController.$inject = [
   "$scope",
+  "$state",
   "$firebase"
 ];
 
 function registrationController(
   $scope,
+  $state,
   $firebase
   ) {
 
@@ -27,12 +29,15 @@ function registrationController(
 
         alert("Successfully created user account with uid: " + userData.uid);
 
-        var userRef = ref.child("user");
+        var userRef = ref.child("users");
         userRef.push({
           id: userData.uid,
           name: name,
           email: email
         });
+        
+        $state.go('login');
+        
       }
     });
   }

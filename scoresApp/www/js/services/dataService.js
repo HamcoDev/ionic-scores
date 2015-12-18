@@ -30,7 +30,7 @@ function dataService(
     return $q(function (resolve, reject) {
       var url = "https://ionic-scores.firebaseio.com/users";
       var userRefs = new Firebase(url);
-      userRefs.once("value", function (snapshot) {
+      userRefs.on("value", function (snapshot) {
         resolve(snapshot.val());
       });
     });
@@ -40,7 +40,7 @@ function dataService(
     return $q(function (resolve, reject) {
       var url = "https://ionic-scores.firebaseio.com/scores/user/".concat(userId).concat("/totalPoints");
       var pointsRef = new Firebase(url);
-      pointsRef.once("value", function (snapshot) {
+      pointsRef.on("value", function (snapshot) {
         resolve(snapshot.val());
       });
     });

@@ -6,14 +6,6 @@
 				<center>Enter Predictions</center>
 			</h2>
       <button ng-click="submit()">Submit</button>
-      <select ng-change="matchdayChanged()" ng-model="selectedMatchday">
-        <option>10</option>
-        <option>11</option>
-        <option>12</option>
-        <option>13</option>
-        <option>14</option>
-        <option>15</option>
-      </select>
 
       <ul ng-repeat="fixture in fixtureList.fixtures">
         <li class="fixture item-divider"> {{ fixture.date | date:'dd-MM-yyyy HH:mm' }} </li>
