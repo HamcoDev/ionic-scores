@@ -20,6 +20,16 @@ function dataService(
     }
   }
 
+  function getCurrentMatchday() {
+    return $q(function (resolve, reject) {
+      var url = "https://ionic-scores.firebaseio.com/currentMatchday";
+      var currentMatchdayRef = new Firebase(url);
+      currentMatchdayRef.on("value", function (snapshot) {
+        resolve(snapshot.val());
+      });
+    });
+  }
+
   function logout() {
     ref.unauth();
     authenticatedUser = ref.getAuth();
@@ -36,25 +46,40 @@ function dataService(
     });
   }
 
-  function getLeagueData() {
+  function getLeagueTotals(total) {
     return $q(function (resolve, reject) {
       getUsers()
         .then(function (users) {
           var leagueData = [];
-                
-          //loop through users and get totalPoints value    
-          angular.forEach(users, function (user) {
 
-            getTotalScore(user.id)
-              .then(function (totalPoints) {
-                // push onto scope results array
-                leagueData.push({
-                  name: user.name,
-                  points: totalPoints
+          if (total) {
+            //loop through users and get totalPoints value    
+            angular.forEach(users, function (user) {
+
+              getTotalScore(user.id)
+                .then(function (totalPoints) {
+                  // push onto scope results array
+                  leagueData.push({
+                    name: user.name,
+                    points: totalPoints
+                  });
                 });
-              });
-          })
+            })
+          }
+          else {
+            //loop through users and get weekPoints value    
+            angular.forEach(users, function (user) {
 
+              getLastWeekScore(user.id)
+                .then(function (weekPoints) {
+                  // push onto scope results array
+                  leagueData.push({
+                    name: user.name,
+                    points: weekPoints
+                  });
+                });
+            })
+          }
           resolve(leagueData);
         });
     });
@@ -67,6 +92,20 @@ function dataService(
       pointsRef.on("value", function (snapshot) {
         resolve(snapshot.val());
       });
+    });
+  }
+
+  function getLastWeekScore(userId) {
+    return $q(function (resolve, reject) {
+      getCurrentMatchday()
+        .then(function (currentMatchday) {
+          var lastMatchday = currentMatchday - 1;
+          var lastMatchdayPointsURL = "https://ionic-scores.firebaseio.com/scores/user/".concat(userId).concat("/matchday/").concat(lastMatchday).concat("/points");
+          var lastMatchdayPointsRef = new Firebase(lastMatchdayPointsURL);
+          lastMatchdayPointsRef.on("value", function (snapshot) {
+            resolve(snapshot.val());
+          });
+        });
     });
   }
 
@@ -88,8 +127,10 @@ function dataService(
         }
       });
     },
+    getCurrentMatchday: getCurrentMatchday,
     getUsers: getUsers,
     getTotalScore: getTotalScore,
-    getLeagueData: getLeagueData
+    getLastWeekScore: getLastWeekScore,
+    getLeagueTotals: getLeagueTotals
   }
 };

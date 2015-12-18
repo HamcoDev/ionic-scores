@@ -14,10 +14,15 @@ function leagueTableController(
   $scope.leagueData = [];
 
   $scope.init = function () {
+    
+    dataService.getLeagueTotals(false)
+      .then(function(weekScore) {
+        $scope.weekScore = weekScore;
+      });
 
-    dataService.getLeagueData()
-      .then(function (leagueData) {
-        $scope.leagueData = leagueData;
+    dataService.getLeagueTotals(true)
+      .then(function (leagueTotals) {
+        $scope.leagueData = leagueTotals;
       });
   }
 };
