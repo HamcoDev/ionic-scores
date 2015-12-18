@@ -68,9 +68,4 @@ $scope.matchdayChanged = function () {
     }, function errorCallback(response) {
     });
   }
-  
-
-  // $scope.currentWeek = function (fixture) {
-  //   return fixture.matchday === 8;
-  // }
 };

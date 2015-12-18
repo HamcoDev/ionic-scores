@@ -8,7 +8,7 @@
 				<div class="col">Name</div>
 				<div class="col">Points</div>
 			</div>
-			<div class="row" ng-repeat="user in leagueData">
+			<div class="row" ng-repeat="user in leagueData | orderBy: 'points' : true">
 				<div class="col">{{user.name}}</div>
 				<div class="col">{{user.points}}</div>
 			</div>

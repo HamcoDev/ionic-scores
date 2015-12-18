@@ -2,13 +2,14 @@ angular.module("scoresApp")
   .factory("dataService", dataService);
 
 dataService.$inject = [
-  "$state"
+  "$state",
+  "$q"
 ];
 
 function dataService(
-  $state
+  $state,
+  $q
   ) {
-
 
   var ref = new Firebase('https://ionic-scores.firebaseio.com');
   var authenticatedUser = ref.getAuth();
@@ -23,6 +24,26 @@ function dataService(
     ref.unauth();
     authenticatedUser = ref.getAuth();
     $state.go('login');
+  }
+
+  function getUsers() {
+    return $q(function (resolve, reject) {
+      var url = "https://ionic-scores.firebaseio.com/users";
+      var userRefs = new Firebase(url);
+      userRefs.once("value", function (snapshot) {
+        resolve(snapshot.val());
+      });
+    });
+  }
+
+  function getTotalScore(userId) {
+    return $q(function (resolve, reject) {
+      var url = "https://ionic-scores.firebaseio.com/scores/user/".concat(userId).concat("/totalPoints");
+      var pointsRef = new Firebase(url);
+      pointsRef.once("value", function (snapshot) {
+        resolve(snapshot.val());
+      });
+    });
   }
 
   return {
@@ -42,6 +63,8 @@ function dataService(
           $state.go('menu.home');
         }
       });
-    }
+    },
+    getUsers: getUsers,
+    getTotalScore: getTotalScore
   }
 };
