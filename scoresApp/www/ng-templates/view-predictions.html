@@ -1,18 +1,35 @@
 <ion-view title="Score Predictor">
 	<ion-content>
-		<div ng-controller="viewPredictionsController">
+		<div ng-controller="viewPredictionsController" data-ng-init="init()">
 			<h2>
 				<center>View Predictions<center>
 			</h2>
 
-			<select ng-change="matchdayChanged()" ng-model="selectedMatchday">
-				<option>10</option>
-				<option>11</option>
-				<option>12</option>
-				<option>13</option>
-				<option>14</option>
-				<option>15</option>
-			</select>
+			<div class="list">
+				<label class="item item-input item-select">
+					<div class="input-label">
+						Matchday
+					</div>
+					<select class="form-control" ng-change="matchdayChanged()" ng-model="selectedMatchday">
+						<option ng-repeat="matchWeek in matchWeeks">{{matchWeek}}</option>
+					</select>
+				</label>
+			</div>
+
+			<div class="list">
+				<label class="item item-input item-select">
+					<div class="input-label">
+						User
+					</div>
+					<select class="form-control" ng-change="userChanged()" ng-model="selectedUser">
+						<option value="c0082e71-0dc6-47b1-8490-c54a9cdb2929">Jason Lynn</option>
+						<option value="6c94a6b0-3a26-490a-84a1-8af2b494542f">Sam Hampton</option>
+						<option value="ea3cf558-8bd2-49d6-9fad-9675bb029e63">Nicola Cheesman</option>
+					</select>
+				</label>
+			</div>
+
+			<h3 ng-if="!predictions.fixture">No results</h3>
 
 			<ul ng-repeat="prediction in predictions.fixture">
 
